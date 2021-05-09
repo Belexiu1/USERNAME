@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <cs50.h>
+#include <limits.h>
+#include <math.h>
+
+int main(void)
+{
+    int v[2] = { 0, 0 };
+    int numar[2];
+    int lungime;
+    int min;
+    for(int i = 0 ; i < 2 ; i++)
+    {
+        numar[i] = get_int("Numarul %i = ", i + 1);
+    }
+    int Numar[2];
+    Numar[0] = numar[0];
+    Numar[1] = numar[1];
+    for(int i = 0 ; i < 2 ; i++)
+    {
+        for(int n = 2 ; n < INT_MAX; n++)
+        {
+            while(numar[i] % n == 0 )
+            {
+                numar[i] = numar[i] / n;
+                v[i]++;
+            }
+            if(numar[i] == 1)
+            {
+                break;
+            }
+        }
+    }
+    if(v[0] > v[1])
+    {
+        lungime = v[0];
+        min = v[1];
+    }
+    else
+    {
+        lungime = v[1];
+        min = v[0];
+    }
+    int tablou[2][lungime];
+    for(int i = 0; i < 2 ; i++)
+    {
+        int m  = 0;
+        for(int n = 2 ; n < INT_MAX; n++)
+        {
+            while(Numar[i] % n == 0)
+            {
+                Numar[i] = Numar[i] / n;
+                tablou[i][m] = n;
+                m++;
+            }
+            if(Numar[i] == 1)
+            {
+                break;
+            }
+        }
+    }
+    if (v[0] > v[1])
+    for(int i = min; i <= lungime; i++)
+    {
+        tablou[1][i] = 1;
+    }
+    else if(v[1] > v[0])
+    {
+        for(int i = min; i <= lungime; i++)
+        {
+            tablou[0][i] = 1;
+        }
+    }
+    int multiplu = 1;
+    int flag0 = 0;
+    int flag1 = 0;
+    int Flag0 = 0;
+    int Flag1 = 0;
+    for (int i = 0; i < lungime; i++)
+    {
+        flag0 = 0;
+        flag1 = 0;
+        Flag0 = 0;
+        Flag1 = 0;
+        if (tablou[0][i] == tablou[1][i])
+        {
+            multiplu = multiplu * tablou[0][i];
+        }
+        else if(tablou[0][i] != tablou[1][i])
+        {
+            for(int n = 0 ; n < lungime; n++)
+            {
+                if (tablou[0][i] == tablou[1][n])
+                {
+                    flag1++;
+                }
+                else if(tablou[0][i] == tablou[0][n])
+                {
+                    flag0++;
+                }
+            }
+            for(int n = 0 ; n < lungime; n++)
+            {
+                if (tablou[1][i] == tablou[1][n])
+                {
+                    Flag1++;
+                }
+                else if(tablou[1][i] == tablou[0][n])
+                {
+                    Flag0++;
+                }
+            }
+            if (flag0 > flag1)
+            {
+                multiplu = multiplu * tablou[0][i];
+            }
+            if (Flag1 > Flag0)
+            {
+                multiplu = multiplu * tablou[1][i];
+            }
+           /* if(flag0 == flag1)
+            {
+                multiplu = multiplu * tablou[0][i]; 
+            }*/
+            /*if (Flag1 == Flag0)
+            {
+                multiplu = multiplu * tablou[1][i];
+            }*/
+        
+        }
+    }    
+    printf("%i\n",multiplu);
+}
+
