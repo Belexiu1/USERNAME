@@ -1,0 +1,188 @@
+#include <stdio.h>
+#include <cs50.h>
+#include <limits.h>
+#include <math.h>
+
+int main(void)
+{
+    int v[2] = { 0, 0 };
+    int numar[2];
+    int lungime;
+    int min;
+    for(int i = 0 ; i < 2 ; i++)
+    {
+        numar[i] = get_int("Numarul %i = ", i + 1);
+    }
+    int Numar[2];
+    Numar[0] = numar[0];
+    Numar[1] = numar[1];
+    for(int i = 0 ; i < 2 ; i++)
+    {
+        for(int n = 2 ; n < INT_MAX; n++)
+        {
+            while(numar[i] % n == 0 )
+            {
+                numar[i] = numar[i] / n;
+                v[i]++;
+            }
+            if(numar[i] == 1)
+            {
+                break;
+            }
+        }
+    }
+    if(v[0] > v[1])
+    {
+        lungime = v[0];
+        min = v[1];
+    }
+    else
+    {
+        lungime = v[1];
+        min = v[0];
+    }
+    int tablou[2][lungime];
+    for(int i = 0; i < 2 ; i++)
+    {
+        int m  = 0;
+        for(int n = 2 ; n < INT_MAX; n++)
+        {
+            while(Numar[i] % n == 0)
+            {
+                Numar[i] = Numar[i] / n;
+                tablou[i][m] = n;
+                m++;
+            }
+            if(Numar[i] == 1)
+            {
+                break;
+            }
+        }
+    }
+  /*   for(int i = 0 ; i < 2; i++)
+    {
+        for(int n = 0; n < lungime; n++)
+        {
+            printf("%i ", tablou[i][n]);
+        }
+        printf("\n");
+    }*/
+    if (v[0] > v[1])
+    for(int i = min; i <= lungime; i++)
+    {
+        tablou[1][i] = 1;
+    }
+    else if(v[1] > v[0])
+    {
+        for(int i = min; i < lungime; i++)
+        {
+            tablou[0][i] = 1;
+        }
+    }
+  /*  for(int i = 0 ; i < 2; i++)
+    {
+        for(int n = 0; n < lungime; n++)
+        {
+            printf("%i ", tablou[i][n]);
+        }
+        printf("\n");
+    }*/
+    for (int i = 0; i < lungime; i++)
+    {
+        int flag = 0;
+        int Flag = 0;
+        int temporal;
+        temporal = tablou[0][i];
+            for(int n = 0; n < lungime ; n++)
+            {
+                if(temporal == tablou[0][n])
+                {
+                    flag++;
+                }
+            }
+            for(int n = 0; n < lungime ; n++)
+            {
+                if(temporal == tablou[1][n])
+                {
+                    Flag++;
+                }
+            }
+            if (flag >= Flag)
+            {
+                for (int n = 0; n < lungime; n++)
+                {
+                    if (tablou[1][n] == temporal)
+                    {
+                        tablou[1][n] = 1;
+                    }
+                }
+            }
+            
+    }    
+ /*   for(int i = 0 ; i < 2; i++)
+    {
+        for(int n = 0; n < lungime; n++)
+        {
+            printf("%i ", tablou[i][n]);
+        }
+        printf("\n");
+    }*/
+    for (int i = 0; i < lungime; i++)
+    {
+        int flag = 0;
+        int Flag = 0;
+        int temporal;
+        temporal = tablou[1][i];
+        if (tablou[1][i] > 1 )
+        {
+            for(int x = 0; x < lungime; x++)
+            {
+                if(temporal == tablou[0][x])
+                {
+                    flag++;
+            //        printf("%i ", flag);
+                }
+            }
+            for(int y = 0; y < lungime; y++)
+            {
+                if(temporal == tablou[1][y])
+                {
+                    Flag++;
+             //       printf("%i ", Flag);
+                }
+            }
+        }
+            if(Flag > flag )
+            {
+                for (int n = 0; n < lungime ; n++)
+                {
+                    if (temporal == tablou[0][n])
+                    {
+                        tablou[0][n] = 1; 
+                    }
+                }    
+            }
+        
+    }
+    //    printf("\n");
+    /* for(int i = 0 ; i < 2; i++)
+    {
+        for(int n = 0; n < lungime; n++)
+        {
+            printf("%i ", tablou[i][n]);
+        }
+        printf("\n");
+    }*/
+     int multiplu = 1;
+     for(int i = 0; i < 2 ; i++)
+        {
+            for(int n = 0 ; n < lungime; n++)
+            {
+                multiplu = multiplu * tablou[i][n];
+            //    printf("%i\n", multiplu);
+            }
+        }
+    printf("%i\n",multiplu);
+}
+
+
