@@ -1,0 +1,42 @@
+#include <stdio.h>
+
+void tiparb(int b[], int n)
+{
+    for (int i = 1; i <= n; i++)
+    {
+        printf("%d",  b[i]);
+    }
+  printf(" ");
+}
+
+
+
+int main()
+{
+    int b[50];
+    int n = 4;
+    int k;
+
+    // initializam tabloul b cu zerouri
+    for (int i = 0; i <= n; i++)
+    {
+        b[i] = 0;
+      //  printf("%i", b[i]);
+    }
+    // repetam generarea secventelor de la 0+0...0 (de n ori)
+    // pana la secventa 0+1...11(de n ori), care este urmata de 1+0...0(de n ori)
+    // deci conditia de oprire este valoarea 1 pentru b[0]
+  /*  while (b[0] == 0)
+    {
+        tiparb(b, n);
+        k = n;
+        while (b[k] == 1)
+        {
+                b[k] = 0;
+                k--;
+        }
+        b[k] = 1; // initial acesta era primul zero din dreapta
+    }*/
+    printf("\n");
+
+}
